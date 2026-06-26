@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+
+<title>Nông Trại Làng Lá</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Nunito',sans-serif;
+
+min-height:100vh;
+
+padding:35px;
+
+overflow-x:hidden;
+
+background:
+
+linear-gradient(to bottom,#8ed6ff 0%,#c9f2ff 35%,#dfffd8 70%,#8bd17c 100%);
+
+animation:fadeIn 1.2s;
+
+position:relative;
+
+}
+
+/*=========================
+BACKGROUND
+==========================*/
+
+body::before{
+
+content:"☀";
+
+position:fixed;
+
+top:30px;
+
+right:40px;
+
+font-size:70px;
+
+animation:spinSun 80s linear infinite;
+
+z-index:0;
+
+}
+
+body::after{
+
+content:"🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾🌾";
+
+position:fixed;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+font-size:26px;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+}
+
+/*=========================
+TITLE
+==========================*/
+
+h1{
+
+text-align:center;
+
+font-size:42px;
+
+font-weight:800;
+
+color:#187536;
+
+margin-bottom:45px;
+
+text-shadow:
+
+0 2px 0 white,
+
+0 4px 12px rgba(0,0,0,.15);
+
+animation:dropTitle 1s ease;
+
+position:relative;
+
+z-index:5;
+
+}
+
+/*=========================
+GRID
+==========================*/
+
+.container{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+
+gap:28px;
+
+position:relative;
+
+z-index:5;
+
+}
+
+/*=========================
+CARD
+==========================*/
+
+.card{
+
+background:rgba(255,255,255,.55);
+
+backdrop-filter:blur(10px);
+
+-webkit-backdrop-filter:blur(10px);
+
+border:1.5px solid rgba(255,255,255,.45);
+
+border-radius:24px;
+
+padding:24px;
+
+text-align:center;
+
+box-shadow:
+
+0 10px 28px rgba(0,0,0,.12),
+
+0 0 0 1px rgba(255,255,255,.15) inset;
+
+transition:.35s;
+
+animation:cardShow .7s ease both;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:60%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+120deg,
+
+transparent,
+
+rgba(255,255,255,.45),
+
+transparent
+
+);
+
+transform:skewX(-25deg);
+
+transition:1s;
+
+}
+
+.card:hover::before{
+
+left:180%;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-12px)
+scale(1.04);
+
+background:rgba(255,255,255,.72);
+
+box-shadow:
+
+0 22px 45px rgba(0,0,0,.20),
+
+0 0 18px rgba(255,255,255,.45);
+
+}
+
+/*=========================
+HOUSE
+==========================*/
+
+.house{
+
+font-size:42px;
+
+margin-bottom:6px;
+
+}
+
+/*=========================
+NAME
+==========================*/
+
+.name{
+
+font-size:23px;
+
+font-weight:800;
+
+color:#2b6338;
+
+margin-bottom:10px;
+
+}
+
+/*=========================
+TREE
+==========================*/
+
+.tree{
+
+font-size:82px;
+
+margin:14px 0;
+
+animation:sway 3s ease-in-out infinite;
+
+filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));
+
+}
+
+/*=========================
+PROGRESS
+==========================*/
+
+.progress{
+
+height:18px;
+
+background:#d8d8d8;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin:18px 0;
+
+box-shadow:inset 0 2px 6px rgba(0,0,0,.15);
+
+}
+
+.bar{
+
+height:100%;
+
+width:0;
+
+border-radius:30px;
+
+background:
+
+linear-gradient(90deg,
+
+#53db52,
+
+#7ce45e,
+
+#b8ff6d);
+
+transition:width 2s;
+
+}
+
+/*=========================
+TEXT
+==========================*/
+
+.score{
+
+font-size:22px;
+
+font-weight:800;
+
+color:#444;
+
+}
+
+.level{
+
+margin-top:8px;
+
+font-size:16px;
+
+font-weight:700;
+
+color:#5d8d48;
+
+}
+
+/*=========================
+CLOUDS
+==========================*/
+
+.cloud{
+
+position:fixed;
+
+font-size:65px;
+
+opacity:.85;
+
+z-index:1;
+
+animation:cloudMove linear infinite;
+
+pointer-events:none;
+
+}
+
+.cloud:nth-child(1){
+
+top:70px;
+
+animation-duration:55s;
+
+}
+
+.cloud:nth-child(2){
+
+top:160px;
+
+animation-duration:75s;
+
+font-size:85px;
+
+}
+
+.cloud:nth-child(3){
+
+top:260px;
+
+animation-duration:95s;
+
+}
+
+/*=========================
+ANIMATION
+==========================*/
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+@keyframes sway{
+
+0%{
+
+transform:rotate(-2deg);
+
+}
+
+50%{
+
+transform:rotate(2deg);
+
+}
+
+100%{
+
+transform:rotate(-2deg);
+
+}
+
+}
+
+@keyframes spinSun{
+
+from{
+
+transform:rotate(0);
+
+}
+
+to{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+@keyframes cardShow{
+
+from{
+
+opacity:0;
+
+transform:
+
+translateY(35px)
+
+scale(.9);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+
+translateY(0)
+
+scale(1);
+
+}
+
+}
+
+@keyframes dropTitle{
+
+from{
+
+opacity:0;
+
+transform:
+
+translateY(-60px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+
+translateY(0);
+
+}
+
+}
+
+@keyframes cloudMove{
+
+from{
+
+left:-250px;
+
+}
+
+to{
+
+left:110%;
+
+}
+
+}
+
+/*=========================
+RESPONSIVE
+==========================*/
+
+@media(max-width:700px){
+
+h1{
+
+font-size:30px;
+
+}
+
+.tree{
+
+font-size:64px;
+
+}
+
+}
+
+
+.cloud{
+    position:fixed;
+    z-index:0;
+    font-size:70px;
+    pointer-events:none;
+    opacity:.85;
+}
+
+.cloud1{
+    top:50px;
+    left:-250px;
+    animation:cloud1 55s linear infinite;
+}
+
+.cloud2{
+    top:140px;
+    left:-350px;
+    font-size:90px;
+    animation:cloud2 75s linear infinite;
+}
+
+.cloud3{
+    top:250px;
+    left:-180px;
+    font-size:60px;
+    animation:cloud3 65s linear infinite;
+}
+
+@keyframes cloud1{
+    from{transform:translateX(0);}
+    to{transform:translateX(calc(100vw + 500px));}
+}
+
+@keyframes cloud2{
+    from{transform:translateX(0);}
+    to{transform:translateX(calc(100vw + 650px));}
+}
+
+@keyframes cloud3{
+    from{transform:translateX(0);}
+    to{transform:translateX(calc(100vw + 450px));}
+}
+
+
+/*======================
+MUSIC BUTTON
+======================*/
+
+#musicBtn{
+
+position:fixed;
+
+top:20px;
+
+right:20px;
+
+width:58px;
+
+height:58px;
+
+border:none;
+
+border-radius:50%;
+
+background:white;
+
+font-size:24px;
+
+cursor:pointer;
+
+box-shadow:0 8px 18px rgba(0,0,0,.18);
+
+transition:.3s;
+
+z-index:999;
+
+}
+
+#musicBtn:hover{
+
+transform:scale(1.12);
+
+}
+
+/*=========================
+BIRD
+=========================*/
+
+.bird{
+
+    position:fixed;
+
+    left:-100px;
+
+    top:120px;
+
+    font-size:34px;
+
+    z-index:3;
+
+    pointer-events:none;
+
+    animation:birdFly linear forwards;
+
+}
+
+@keyframes birdFly{
+
+    from{
+
+        transform:translateX(0);
+
+    }
+
+    to{
+
+        transform:translateX(calc(100vw + 220px));
+
+    }
+
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="cloud cloud1">☁️</div>
+<div class="cloud cloud2">☁️</div>
+<div class="cloud cloud3">☁️</div>
+
+<h1>🌿 NÔNG TRẠI LÀNG LÁ 🌿</h1>
+
+<div class="container" id="farm"></div>
+
+<script>
+
+const MAX = 170;
+
+const students=[
+
+{name:"An",score:57},
+
+{name:"Vân",score:55},
+
+{name:"Nhật",score:46},
+
+
+];
+function tree(score){
+
+    if(score < 50) return "🌱";
+
+    if(score < 100) return "🌿";
+
+    if(score < 150) return "🌳🌸";
+
+    return "🌳🍎";
+
+}
+
+function level(score){
+
+    if(score < 50) return "Mầm non";
+
+    if(score < 100) return "Cây non";
+
+    if(score < 150) return "Đã ra hoa 🌸";
+
+    return "Đã ra quả 🍎";
+
+}
+
+
+const farm=document.getElementById("farm");
+
+students.forEach((s,i)=>{
+
+let percent=Math.min(100,s.score/MAX*100);
+
+farm.innerHTML+=`
+
+<div class="card">
+
+<div class="house">🏡</div>
+
+<div class="name">Hộ ${i+1}<br>${s.name}</div>
+
+<div class="tree">${tree(s.score)}</div>
+
+<div class="progress">
+
+<div class="bar" data-width="${percent}%"></div>
+
+</div>
+
+<div class="score">${s.score} / ${MAX}</div>
+
+<div class="level">${level(s.score)}</div>
+
+</div>
+
+`;
+
+});
+
+
+setTimeout(()=>{
+
+    document.querySelectorAll(".bar").forEach(bar=>{
+
+        bar.style.width=bar.dataset.width;
+
+    });
+
+},400);
+
+
+//======================
+// MUSIC
+//======================
+
+const music=document.getElementById("bgMusic");
+
+const musicBtn=document.getElementById("musicBtn");
+
+let started=false;
+
+// Trình duyệt chỉ cho phát sau khi người dùng tương tác
+document.body.addEventListener("click",()=>{
+
+    if(!started){
+
+        music.volume=0.35;
+
+        music.play().catch(()=>{});
+
+        started=true;
+
+    }
+
+},{once:true});
+
+musicBtn.onclick=()=>{
+
+    if(music.paused){
+
+        music.play();
+
+        musicBtn.innerHTML="🔊";
+
+    }else{
+
+        music.pause();
+
+        musicBtn.innerHTML="🔇";
+
+    }
+
+}
+
+//=========================
+// BIRD
+//=========================
+
+function createBird(){
+
+    const bird=document.createElement("div");
+
+    bird.className="bird";
+
+	bird.innerHTML="🐦";
+
+    // độ cao ngẫu nhiên
+    bird.style.top=(50+Math.random()*180)+"px";
+
+    // kích thước ngẫu nhiên
+    bird.style.fontSize=(28+Math.random()*12)+"px";
+
+    // tốc độ ngẫu nhiên
+    bird.style.animationDuration=(10+Math.random()*8)+"s";
+
+    document.body.appendChild(bird);
+
+    bird.addEventListener("animationend",()=>{
+
+        bird.remove();
+
+    });
+
+}
+
+// Tạo ngay khi mở trang
+createBird();
+
+// Sau 3 giây tạo thêm
+setTimeout(createBird,3000);
+
+// Sau 6 giây tạo thêm
+setTimeout(createBird,6000);
+
+// Sau đó cứ 15 giây tạo một con
+setInterval(createBird,15000);
+
+</script>
+
+<!-- ===== MUSIC ===== -->
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="audio/farm.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn">🔊</button>
+
+</body>
+</html>
