@@ -329,6 +329,78 @@ color:#5d8d48;
 
 }
 
+
+.pig-bank{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:8px;
+
+margin:10px 0 14px;
+
+padding:8px 14px;
+
+border-radius:999px;
+
+background:rgba(255,192,203,.18);
+
+border:1px solid rgba(255,182,193,.4);
+
+font-weight:800;
+
+font-size:17px;
+
+color:#d14a7b;
+
+width:fit-content;
+
+margin-left:auto;
+
+margin-right:auto;
+
+box-shadow:
+
+0 3px 10px rgba(255,105,180,.15);
+
+}
+
+.pig-icon{
+
+font-size:28px;
+
+animation:pigJump 2s infinite;
+
+}
+
+.coin{
+
+color:#f2b600;
+
+font-size:18px;
+
+}
+
+@keyframes pigJump{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-3px);
+
+}
+
+}
+
+
 /*=========================
 CLOUDS
 ==========================*/
@@ -667,12 +739,11 @@ const MAX = 170;
 
 const students=[
 
-{name:"An🐟🐟🐟",score:173},
+{name:"An🐟🐟🐟🍎",score:57,pig:0},
 
-{name:"Vân🦎🦎",score:171},
+{name:"Vân🦎🦎🍎",score:34,pig:0},
 
-{name:"Nhật",score:129},
-
+{name:"Nhật🍎",score:1,pig:0},
 
 ];
 function tree(score){
@@ -714,6 +785,16 @@ farm.innerHTML+=`
 
 <div class="name">Hộ ${i+1}<br>${s.name}</div>
 
+<div class="pig-bank">
+
+<span class="pig-icon">🐷</span>
+
+<span class="coin">🪙</span>
+
+${s.pig.toLocaleString()}
+
+</div>
+
 <div class="tree">${tree(s.score)}</div>
 
 <div class="progress">
@@ -721,6 +802,7 @@ farm.innerHTML+=`
 <div class="bar" data-width="${percent}%"></div>
 
 </div>
+
 
 <div class="score">${s.score} / ${MAX}</div>
 
@@ -842,3 +924,5 @@ setInterval(createBird,15000);
 
 </body>
 </html>
+
+
